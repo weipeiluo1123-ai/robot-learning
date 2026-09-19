@@ -51,8 +51,9 @@ robot-learning/
 │   ├── current_state.md
 │   ├── roadmap.md
 │   ├── troubleshooting.md
-│   ├── stage0_environment_setup.md
-│   ├── stage1_mujoco_basics.md
+│   ├── stages/
+│   │   ├── stage0_environment_setup.md
+│   │   └── stage1_mujoco_basics.md
 │   └── checkpoints/
 └── mujoco/
     ├── 01_falling_ball/
