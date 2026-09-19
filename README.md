@@ -1,6 +1,35 @@
 # robot-learning
 Goal: Build a minimal robot learning pipeline from simulation to imitation learning and reinforcement learning.
 
+Project Structure
+robot-learning/
+│
+├── README.md
+├── .gitignore
+│
+├── mujoco/
+│   ├── 01_falling_ball/
+│   │   ├── ball.xml
+│   │   └── main.py
+│   │
+│   ├── 02_pendulum/
+│   │   ├── pendulum.xml
+│   │   └── main.py
+│   │
+│   └── 03_robot_arm/
+│
+├── imitation_learning/
+│
+├── reinforcement_learning/
+│
+├── assets/
+│
+├── docs/
+│
+└── outputs/
+
+1.Robot Learning 是什么？
+
                     Robot Learning
                          │
         ┌────────────────┼────────────────┐
@@ -14,10 +43,7 @@ Goal: Build a minimal robot learning pipeline from simulation to imitation learn
         │
    计算加速后端
 
-注：当前学习的第一版认知地图
 
-一些留下来的问题：
-Robot Learning 是什么？
 observation 和 state 有什么区别？
 action 是什么？
 policy 是什么？
