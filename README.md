@@ -1,6 +1,21 @@
 # robot-learning-sprint
 Goal: Build a minimal robot learning pipeline from simulation to imitation learning and reinforcement learning.
 
+                    Robot Learning
+                         │
+        ┌────────────────┼────────────────┐
+        │                │                │
+     PyTorch          MuJoCo            ROS2
+        │                │                │
+   神经网络/训练        物理仿真         机器人软件通信
+        │
+        ▼
+  MPS / CUDA
+        │
+   计算加速后端
+
+注：当前学习的第一版认知地图
+
 一些留下来的问题：
 Robot Learning 是什么？
 observation 和 state 有什么区别？
