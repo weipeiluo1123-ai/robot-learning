@@ -1,16 +1,16 @@
 ---
-title: Day 1 — MuJoCo Basics
+title: Stage 1 — MuJoCo Basics
 project: robot-learning
-day: 1
+stage: 1
 status: in_progress
 tags: [robot-learning, mujoco, simulation]
 ---
 
-# Day 1 — MuJoCo Basics
+# Stage 1 — MuJoCo Basics
 
 > **Status: In Progress**
 
-Day 1 当前完成了 MuJoCo 初步认识、安装、falling-ball 实验、Viewer 和 Python-controlled simulation。**Joint / DOF / Pendulum 尚未开始。**
+Stage 1 当前完成了 MuJoCo 初步认识、安装、falling-ball 实验、Viewer、Python-controlled simulation，以及 1-DOF pendulum 的初步实验。2-DOF two-link arm 已有实验代码，但尚未作为完成内容总结。
 
 ## 学习路径
 
@@ -139,7 +139,18 @@ load model → create data → mj_step loop → render
 
 XML 只是 model description，不会自己执行仿真。
 
-## 7. Python-controlled simulation
+## 7. Pendulum：第一次接触 Joint / DOF
+
+当前已有 `mujoco/02_pendulum/` 实验，其中包含一个 hinge joint。通过这个实验，开始观察：
+
+- `model.nq`、`model.nv` 和 `data.qpos` / `data.qvel` 的关系。
+- hinge joint 的位置和旋转轴。
+- 修改 `data.qpos[0]` 后调用 `mujoco.mj_forward(model, data)`，让状态与派生量同步。
+- 使用 `mj_step` 后，`qpos[0]` 和 `qvel[0]` 随仿真时间变化。
+
+这里的理解仍然属于 Stage 1 的基础阶段，不延伸为完整的机器人运动学或控制理论。
+
+## 8. Python-controlled simulation
 
 当前项目结构：
 
@@ -189,7 +200,7 @@ mjpython mujoco/01_falling_ball/main.py
 | standalone viewer | Viewer | 否 |
 | passive viewer | Python 主程序 | 是 |
 
-## 8. Day 1 学到的 Python 概念
+## 9. Stage 1 学到的 Python 概念
 
 因为之前主要使用 C++：
 
@@ -218,7 +229,7 @@ viewer.sync()
 
 y.device 是 attribute；viewer.is_running() 和 viewer.sync() 是 method。with 管理 resource lifecycle，可以和 C++ RAII 建立直觉联系。Path(__file__).with_name("ball.xml") 避免依赖当前 working directory。time.time() 测 wall-clock time，time.sleep() 暂停程序。
 
-## 9. Terminal state 与 Viewer state
+## 10. Terminal state 与 Viewer state
 
 在 mj_step 后增加：
 
@@ -233,9 +244,8 @@ MjData = simulation state
 Viewer = state visualization
 ```
 
-## 10. 当前状态
+## 11. 当前状态
 
-Day 1 仍在进行中，不把 Joint、DOF 或 Pendulum写成已经掌握的内容。
+Stage 1 仍在进行中。Pendulum 和基础 hinge / DOF 概念已经接触并完成初步实验；2-DOF two-link arm 仍待系统理解和总结。
 
-**Next: Joint / DOF / Pendulum**
-
+**Next: 2-DOF Two-Link Arm / Actuator / Control**

@@ -1,18 +1,18 @@
 ---
-title: Day 0 — Development Environment Setup
+title: Stage 0 — Development Environment Setup
 project: robot-learning
-day: 0
+stage: 0
 status: completed
 tags: [robot-learning, environment, conda, pytorch, mps]
 ---
 
-# Day 0 — Development Environment Setup
+# Stage 0 — Development Environment Setup
 
 ## Status
 
 **Completed**
 
-这一天的重点不是记住安装命令，而是形成“先观察、再理解、再修改”的环境管理方法。
+这个阶段的重点不是记住安装命令，而是形成“先观察、再理解、再修改”的环境管理方法。
 
 ## 1. Mac 基础环境
 
@@ -220,7 +220,7 @@ wandb/
 
 不要 ignore .py、.xml、README、docs；不要提交 Conda environment、secrets、大型 checkpoints 或 datasets。
 
-## 8. Day 0 回看
+## 8. Stage 0 回看
 
 ### What is it?
 
@@ -229,4 +229,3 @@ Conda environment 是隔离的项目运行环境；PATH 决定 shell 查找 exec
 ### What did I actually observe?
 
 激活环境后 PATH 和 which python 发生变化；CPU Tensor 默认是 cpu；移动到 MPS 后变为 mps:0；M1 Max 矩阵乘法成功返回 MPS Tensor。
-
