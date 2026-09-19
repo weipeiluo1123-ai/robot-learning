@@ -4,29 +4,31 @@ import time
 import mujoco
 import mujoco.viewer
 
-# 保持目录不变，把文件名 main.py 换成 ball.xml
-xml_path = Path(__file__).with_name("ball.xml")
+xml_path = Path(__file__).with_name("pendulum.xml")
 
 model = mujoco.MjModel.from_xml_path(str(xml_path))
 data = mujoco.MjData(model)
 
-# nq = qpos 的长度    nv = qvel 的长度
 print("nq =", model.nq)
 print("nv =", model.nv)
 print("qpos =", data.qpos)
 print("qvel =", data.qvel)
 
-# with字段内，viewer指的就是mujoco.viewer.launch_passive(model, data)
+data.qpos[0] = 3
+mujoco.mj_forward(model, data)
+
 with mujoco.viewer.launch_passive(model, data) as viewer:
     while viewer.is_running():
         step_start = time.time()
 
-        # 改变物理世界
         mujoco.mj_step(model, data)
         
-        print(data.time, data.qpos[:3])
+        print(
+            f"time={data.time:.2f}, "
+            f"qpos={data.qpos[0]:.2f}, "
+            f"qvel={data.qvel[0]:.2f}"
+        )
 
-        # 同步更新
         viewer.sync()
 
         time_until_next_step = (
@@ -35,4 +37,3 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
 
         if time_until_next_step > 0:
             time.sleep(time_until_next_step)
-
