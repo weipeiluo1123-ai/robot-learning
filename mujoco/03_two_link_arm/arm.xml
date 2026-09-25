@@ -8,7 +8,7 @@
       size="2 2 0.1"
     />
 
-    <body name="link1" pos="0 0 1.5">
+    <body name="link1" pos="0 0 1.5" gravcomp="1">
       <joint
         name="joint1"
         type="hinge"
@@ -25,7 +25,7 @@
         rgba="0.2 0.6 1 1"
       />
 
-      <body name="link2" pos="0 0 -0.6">
+      <body name="link2" pos="0 0 -0.6" gravcomp="1">
         <joint
           name="joint2"
           type="hinge"
