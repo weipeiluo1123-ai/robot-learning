@@ -1,5 +1,5 @@
 <mujoco model="two_link_arm">
-  <option timestep="0.01" gravity="0 0 -9.81"/>
+  <option timestep="0.01" gravity="0 0 -9.81" integrator="implicitfast"/>
 
   <worldbody>
     <geom
@@ -52,7 +52,7 @@
     </body>
   </worldbody>
   <actuator>
-    <position name="joint1_position" joint="joint1" kp="20"/>
-    <position name="joint2_position" joint="joint2" kp="20"/>
+    <position name="joint1_position" joint="joint1" kp="160" dampratio="1"/>
+    <position name="joint2_position" joint="joint2" kp="160" dampratio="1"/>
   </actuator>
 </mujoco>
