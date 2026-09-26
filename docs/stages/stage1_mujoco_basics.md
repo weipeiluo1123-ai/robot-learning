@@ -2,15 +2,16 @@
 title: Stage 1 — MuJoCo Basics
 project: robot-learning
 stage: 1
-status: in_progress
+status: completed
+updated: 2026-09-26
 tags: [robot-learning, mujoco, simulation]
 ---
 
 # Stage 1 — MuJoCo Basics
 
-> **Status: In Progress**
+> **Status: Completed — 基础学习节点完成；后续控制与运动学记录在 Stage 2。**
 
-Stage 1 当前完成了 MuJoCo 初步认识、安装、falling-ball 实验、Viewer、Python-controlled simulation，以及 1-DOF pendulum 的初步实验。2-DOF two-link arm 已有实验代码，但尚未作为完成内容总结。
+Stage 1 完成了 MuJoCo 初步认识、安装、falling-ball 实验、Viewer、Python-controlled simulation，以及 1-DOF pendulum 的初步实验。2026-09-26 根据用户确认的学习进度和现有 IK 代码，将基础阶段收尾；two-link arm 的控制、坐标变换、IK 与轨迹实验转入 [Stage 2](stage2_robot_control_kinematics.md)。Completed 表示基础节点完成，不代表掌握全部 MuJoCo 或机器人理论。
 
 ## 学习路径
 
@@ -152,7 +153,7 @@ XML 只是 model description，不会自己执行仿真。
 
 ## 8. Python-controlled simulation
 
-当前项目结构：
+当时 falling-ball 实验的项目结构（保留历史快照，最新结构见 [Current State](../current_state.md)）：
 
 ```text
 robot-learning/
@@ -246,6 +247,6 @@ Viewer = state visualization
 
 ## 11. 当前状态
 
-Stage 1 仍在进行中。Pendulum 和基础 hinge / DOF 概念已经接触并完成初步实验；2-DOF two-link arm 仍待系统理解和总结。
+最初记录停在 Pendulum 和基础 hinge / DOF；当时的下一步是 2-DOF Two-Link Arm / Actuator / Control。该历史学习顺序保留，当前进度已进入 Stage 2。
 
-**Next: 2-DOF Two-Link Arm / Actuator / Control**
+**Continue: [Stage 2 — Robot Control & Kinematics](stage2_robot_control_kinematics.md)**

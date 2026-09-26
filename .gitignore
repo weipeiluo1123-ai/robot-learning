@@ -46,6 +46,11 @@ logs/
 checkpoints/
 wandb/
 
+# Chat handoff Markdown is documentation, not a model checkpoint.
+!docs/checkpoints/
+docs/checkpoints/*
+!docs/checkpoints/*.md
+
 # =========================
 # Temporary logs
 # =========================

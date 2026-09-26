@@ -336,3 +336,92 @@ Git 的版本跟踪对象是文件内容，不是空目录。
 edit → run / verify → git status → git diff → git add → git commit → git push
 ```
 
+## 14. 位置控制振荡与重力下的稳态误差
+
+### Symptom
+
+阻尼不足时机械臂越过目标并反复振荡；增加 `dampratio` 后振荡减轻，但机械臂停在目标附近而非目标位置。提高 `kp` 会减小偏差。
+
+### Cause
+
+位置控制的刚度和阻尼影响响应与振荡。重力持续作用时，纯位置控制可能需要保留位置误差才能产生支撑重力的控制力矩；因此“稳定”不代表“准确到达”。
+
+### Fix
+
+用户通过观察 `qvel` 区分经过目标与稳定到达，逐步增加 `kp`，并在后续实验中对移动 link 使用重力补偿。用户报告补偿后实际 `qpos` 基本收敛到 IK 目标。
+
+### What I learned
+
+振荡、稳态误差和重力补偿是相关但不同的现象；不能只看是否停下来判断是否准确跟踪。
+
+## 15. 高刚度下的数值不稳定
+
+### Symptom
+
+提高 `kp` 后，仿真出现剧烈数值不稳定。
+
+### Cause
+
+用户观察到高刚度设置与原积分器组合时不稳定。现有学习记录没有保留当时的完整参数和数值日志，因此不进一步归因到更具体的数值机制。
+
+### Fix
+
+切换为 `integrator="implicitfast"` 后，用户观察到高刚度下稳定性明显改善。
+
+### What I learned
+
+控制参数会和仿真积分器共同影响数值表现；单纯增大 `kp` 不是无代价的修正。
+
+## 16. 独立 IK 解导致关节配置跳变
+
+### Symptom
+
+沿 Cartesian path 对每个 waypoint 独立选位置误差最小的 IK 解时，关节配置可能在相邻 waypoint 间切换到另一组解。
+
+### Cause
+
+同一末端位置可能对应多个 joint configuration。逐点只最小化 Cartesian error，没有表达相邻配置应保持连续的偏好。
+
+### Fix
+
+在满足位置误差容差的 IK 候选中，优先选择距离上一 waypoint 关节配置 `prev_q` 最近的候选。
+
+### What I learned
+
+IK 不只是为每个点找一个解；沿路径选解时还要考虑相邻解的连续性。这个简单策略不等于完整的轨迹规划器。
+
+## 17. 轨迹时间太短造成 tracking lag
+
+### Symptom
+
+duration 较短时，关节参考轨迹变化更快，实际机器人更难跟上，tracking error 增大。
+
+### Cause
+
+控制器需要时间让实际状态响应移动中的 `target_q(t)`。path 相同不代表 trajectory 相同；改变 duration 会改变运动速度。
+
+### Fix
+
+用户比较不同 duration，并观察 reference 与 actual 状态的差异；已有实验中约 6 秒的有效 duration 已足以观察该现象。
+
+### What I learned
+
+Path 描述经过哪里，trajectory 还包含何时经过。无需为了验证这一基础结论而重复补做 10 秒实验。
+
+## 18. 文档 checkpoint 被通用 checkpoints 忽略规则遮蔽
+
+### Symptom
+
+`docs/checkpoints/` 中的 Markdown handoff 文件没有出现在 Git 状态里。
+
+### Cause
+
+`.gitignore` 中的通用 `checkpoints/` 规则也匹配了文档目录。
+
+### Fix
+
+在通用规则后为 `docs/checkpoints/` 增加例外，并只放行该目录下的 Markdown 文件。
+
+### What I learned
+
+忽略规则按路径模式匹配；文档 checkpoint 与模型训练 checkpoint 用途不同，规则需要明确区分。

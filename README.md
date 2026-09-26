@@ -10,21 +10,27 @@
 
 ## Current Progress
 
-当前阶段：**Stage 1 — MuJoCo Fundamentals（进行中）**
+当前学习节点：**Stage 2 — Robot Control & Kinematics 已完成**。下一阶段是 Stage 3 — Robot Learning Environment / ManiSkill，尚未开始。
 
 已完成基础实验：
 
 - Falling ball：gravity、contact、qpos、qvel、mj_step
 - Pendulum：hinge joint、1-DOF、joint angle
+- Two-link arm：Pose / Frame、FK、Joint / Cartesian Space、枚举搜索 IK 与多解连续性
+- Position control：振荡、阻尼、稳态误差、积分器与重力补偿的实验观察
+- Path / trajectory：目标路径采样、逐点 IK、时间参数化、关节插值与 tracking lag
 
-当前正在学习：
+本阶段建立的实验流程：
 
-- 2-DOF two-link arm
-- parent/child body hierarchy
-- actuator / control
-- end-effector trajectory
+```text
+Cartesian target/path → IK → Joint path → time parameterization
+    → reference q(t) → controller → dynamics → actual q(t) → FK
+    → actual end-effector trajectory
+```
 
-下一步：**2-DOF Two-Link Arm / Actuator / Control**
+完成状态依据用户的 Stage 2 学习总结；本次额外核验了 6 点无界面 IK 测试。详细观察与验证边界见 [Stage 2](docs/stages/stage2_robot_control_kinematics.md)。
+
+下一步：**确认 Stage 3 学习环境的运行条件，再开始一个最小任务，认识 observation / action / reset / step。**
 
 ## Project Structure
 
@@ -38,7 +44,8 @@ robot-learning/
 │   ├── troubleshooting.md
 │   ├── stages/
 │   │   ├── stage0_environment_setup.md
-│   │   └── stage1_mujoco_basics.md
+│   │   ├── stage1_mujoco_basics.md
+│   │   └── stage2_robot_control_kinematics.md
 │   ├── checkpoints/
 │   ├── images/
 │   └── prompts/
@@ -51,7 +58,9 @@ robot-learning/
     │   └── main.py
     └── 03_two_link_arm/
         ├── arm.xml
-        └── main.py
+        ├── main.py
+        ├── trajectory_test.py
+        └── trajectory_viewer.py
 ```
 
 ## Experiments
@@ -60,7 +69,9 @@ robot-learning/
 |------------|---------------|--------|
 | [01 Falling Ball](mujoco/01_falling_ball/) | gravity、contact、qpos、qvel、mj_step | Completed |
 | [02 Pendulum](mujoco/02_pendulum/) | hinge joint、1-DOF、joint angle | Completed |
-| [03 Two-Link Arm](mujoco/03_two_link_arm/) | 2-DOF、actuator、control、end-effector | In Progress |
+| [03 Two-Link Arm](mujoco/03_two_link_arm/) | Pose / FK、枚举 IK、position control、重力补偿 | 基础学习节点完成 |
+| [Trajectory Test](mujoco/03_two_link_arm/trajectory_test.py) | 6 点目标路径、位置容差、相邻 IK 解选择 | 本次无界面运行通过 |
+| [Trajectory Viewer](mujoco/03_two_link_arm/trajectory_viewer.py) | 51 点 IK、关节插值、tracking lag | 用户已完成观察；本次未重跑 GUI |
 
 ## Documentation
 
@@ -68,25 +79,31 @@ robot-learning/
 - [Roadmap](docs/roadmap.md)：Stage 0–6 的长期学习路线
 - [Stage 0 — Development Environment](docs/stages/stage0_environment_setup.md)
 - [Stage 1 — MuJoCo Fundamentals](docs/stages/stage1_mujoco_basics.md)
+- [Stage 2 — Robot Control & Kinematics](docs/stages/stage2_robot_control_kinematics.md)
 - [Troubleshooting](docs/troubleshooting.md)：实际遇到的问题和长期经验
-- [Checkpoints](docs/checkpoints/)：用于新会话接手项目的上下文记录
+- [Latest Checkpoint](docs/checkpoints/2026-09-26_stage2_complete_stage3_handoff.md)：Stage 2 完成后的新会话交接与 Stage 3 起点
 - [Prompts](docs/prompts/)：项目维护和会话整理 Prompt
 
 ## Environment
 
 - Device: MacBook Pro M1 Max
+- OS: macOS 26.6.2
 - Architecture: Apple Silicon / arm64
 - Conda environment: robot-learning
 - Python: 3.11.16
 - PyTorch: 2.14.0
 - MuJoCo: 3.13.0
-- MPS backend: available and verified
+- NumPy: 2.4.6
+- MPS backend: Stage 0 曾验证 GPU 计算；本次执行进程的可用性差异见 [Current State](docs/current_state.md#environment)
+
+软件版本于 2026-09-26 从本机项目环境读取。
 
 ## Quick Start
 
-激活项目环境：
+以下命令使用已有项目环境，从仓库根目录运行：
 
 ```bash
+cd ~/Projects/robot-learning
 conda activate robot-learning
 ```
 
@@ -99,12 +116,22 @@ python -c "import torch; print(torch.__version__)"
 python -c "import mujoco; print(mujoco.__version__)"
 ```
 
-运行 MuJoCo 实验：
+按需运行一个 MuJoCo 实验；关闭 Viewer 后可继续执行下一条：
 
 ```bash
 mjpython mujoco/01_falling_ball/main.py
 mjpython mujoco/02_pendulum/main.py
 mjpython mujoco/03_two_link_arm/main.py
+```
+
+two-link arm 的 main.py 会先搜索单点 IK 并打印位姿/坐标变换，再启动控制与可视化。新增轨迹入口：
+
+```bash
+# 无界面：打印 6 点路径的 IK 解、delta q 与位置误差
+python mujoco/03_two_link_arm/trajectory_test.py
+
+# 有界面：预计算 51 点 IK，再按仿真时间播放关节目标
+mjpython mujoco/03_two_link_arm/trajectory_viewer.py
 ```
 
 查看 falling-ball 的 standalone Viewer：
