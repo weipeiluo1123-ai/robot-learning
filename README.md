@@ -158,7 +158,7 @@ python -m mujoco.viewer --mjcf=mujoco/01_falling_ball/ball.xml
 ```
 
 - PyTorch：神经网络、Tensor 和学习算法
-- MuJoCo：物理世界和机器人仿真, FK, IK
+- MuJoCo：物理世界和机器人仿真
 - ROS2：机器人软件通信与系统组织
 - MPS / CUDA：计算加速 backend
 
