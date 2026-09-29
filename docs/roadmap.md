@@ -39,14 +39,21 @@
 
 详见 [Stage 2 学习记录](stages/stage2_robot_control_kinematics.md)。
 
+## Stage 2.5 — Robot Learning Bridge（Stage 3 前的过渡）
+
+**Status: Completed（2026-09-29，toy environment 入门节点）**
+
+- 首次直接接触 ManiSkill 时，环境接口与渲染/依赖术语同时出现；因此插入一个小型过渡实验，不改变 Stage 0–6 总路线。
+- `bridge/01`–`08` 从 state/action 递进到 policy、reward、episode、terminated/truncated、`env_step()` 和 `SimpleEnv.reset()/step()`。
+- 已理解 toy 接口；ManiSkill 的实际 observation/action、环境创建仍待 Stage 3 实测。详见 [Stage 2.5 学习记录](stages/stage2_5_robot_learning_bridge.md)。
+
 ## Stage 3 — Robot Learning Environment / ManiSkill
 
-**Status: Planned — 下一阶段，尚未开始**
+**Status: Preparing — 已安装和尝试示例，尚无成功运行的环境实验**
 
-- 先核对 ManiSkill 的运行要求与当前 Mac 的适配情况，再决定实际运行环境
-- 在确认可用的环境中运行一个最小任务
-- observation、action、state 的实际接口
-- reset / step 与最小任务执行循环
+- 本机 `robot-learning` 环境已有 ManiSkill 3.0.1；此前 PickCube 随机动作示例在 Vulkan 初始化失败，不能据此推断 headless CPU 路径的结果。
+- 第一个实验只尝试创建最小 headless 环境并调用 `reset()`，对照 Stage 2.5 的 `SimpleEnv`，观察返回结构。
+- 成功后逐步检查少量 observation 字段、action 与 `step()`；再看任务 reward 和 episode 结束条件。
 
 ## Stage 4 — Imitation Learning / Behavior Cloning
 
@@ -76,6 +83,8 @@
 - 面向 GitHub 和求职展示的项目整理
 
 ## 路线维护原则
+
+2026-09-29 调整依据：`bridge/01`–`08` 已提交，用户原始 handoff 确认 Stage 2.5 的学习过程；本次复跑时间截断和 `SimpleEnv`。因此把 Stage 2.5 标为完成，并把 Stage 3 状态改为“准备中”。Stage 4–6 目标不变；LeRobot / Isaac Lab 等只作为后续候选工具，不新增为当前必经阶段。
 
 2026-09-26 更新依据：用户补充完整 Stage 2 学习总结，确认已完成坐标变换、IK、多解连续性、控制调参和轨迹时长实验；现有代码与本次无界面核验提供对应实现依据。将 Stage 2 收尾并把近期目标移到 Stage 3，Stage 0–6 总体方向不变。
 

@@ -425,3 +425,21 @@ Path 描述经过哪里，trajectory 还包含何时经过。无需为了验证�
 ### What I learned
 
 忽略规则按路径模式匹配；文档 checkpoint 与模型训练 checkpoint 用途不同，规则需要明确区分。
+
+## 19. ManiSkill 可导入，但 PickCube 示例在 Vulkan 初始化失败
+
+### Symptom
+
+Stage 2.5 原始 handoff 记录：`import mani_skill` 等依赖成功；运行 `python -m mani_skill.examples.demo_random_action -e PickCube-v1` 时，先出现 macOS 强制 `sapien_cpu` 渲染后端的信息，随后报 GPU driver 不支持 Vulkan，最终 `vk::createInstanceUnique: ErrorIncompatibleDriver`。本次文档维护未复跑示例。
+
+### Cause
+
+现有堆栈指向 SAPIEN/Vulkan renderer 初始化与当前 macOS 驱动组合不兼容。具体驱动或配置根因尚未证实；不能把它简化为 ManiSkill 包未安装，也不能推断所有 headless CPU 配置都失败。
+
+### Fix
+
+尚无经验证的修复。下一步最小化创建环境并调用 `reset()`，先测试 headless CPU、非图像 observation 的可行性；记录准确命令、异常及发生层级。若仍依赖 renderer，再依据实测选择其他运行环境。
+
+### What I learned
+
+包导入、环境创建、物理仿真和渲染是不同的成功条件；排错要确认失败发生在哪一层。

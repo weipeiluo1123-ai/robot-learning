@@ -10,7 +10,7 @@
 
 ## Current Progress
 
-当前学习节点：**Stage 2 — Robot Control & Kinematics 已完成**。下一阶段是 Stage 3 — Robot Learning Environment / ManiSkill，尚未开始。
+当前学习节点：**Stage 2.5 — Robot Learning Bridge 已完成**。Stage 3 — Robot Learning Environment / ManiSkill 正在准备；已安装并尝试示例，但还没有成功运行的环境实验。
 
 已完成基础实验：
 
@@ -30,7 +30,7 @@ Cartesian target/path → IK → Joint path → time parameterization
 
 完成状态依据用户的 Stage 2 学习总结；本次额外核验了 6 点无界面 IK 测试。详细观察与验证边界见 [Stage 2](docs/stages/stage2_robot_control_kinematics.md)。
 
-下一步：**确认 Stage 3 学习环境的运行条件，再开始一个最小任务，认识 observation / action / reset / step。**
+下一步：**从 `SimpleEnv` 对照 ManiSkill，验证最小环境创建和 `reset()`，只观察返回结构。**
 
 ## Project Structure
 
@@ -45,10 +45,12 @@ robot-learning/
 │   ├── stages/
 │   │   ├── stage0_environment_setup.md
 │   │   ├── stage1_mujoco_basics.md
-│   │   └── stage2_robot_control_kinematics.md
+│   │   ├── stage2_robot_control_kinematics.md
+│   │   └── stage2_5_robot_learning_bridge.md
 │   ├── checkpoints/
 │   ├── images/
 │   └── prompts/
+├── bridge/                 # 01–08 toy environment 实验
 └── mujoco/
     ├── 01_falling_ball/
     │   ├── ball.xml
@@ -72,6 +74,7 @@ robot-learning/
 | [03 Two-Link Arm](mujoco/03_two_link_arm/) | Pose / FK、枚举 IK、position control、重力补偿 | 基础学习节点完成 |
 | [Trajectory Test](mujoco/03_two_link_arm/trajectory_test.py) | 6 点目标路径、位置容差、相邻 IK 解选择 | 本次无界面运行通过 |
 | [Trajectory Viewer](mujoco/03_two_link_arm/trajectory_viewer.py) | 51 点 IK、关节插值、tracking lag | 用户已完成观察；本次未重跑 GUI |
+| [Bridge](bridge/) | state/action 到 `SimpleEnv.reset()/step()` | Stage 2.5 完成；本次复跑 `06`、`08` |
 
 ## Documentation
 
@@ -80,23 +83,25 @@ robot-learning/
 - [Stage 0 — Development Environment](docs/stages/stage0_environment_setup.md)
 - [Stage 1 — MuJoCo Fundamentals](docs/stages/stage1_mujoco_basics.md)
 - [Stage 2 — Robot Control & Kinematics](docs/stages/stage2_robot_control_kinematics.md)
+- [Stage 2.5 — Robot Learning Bridge](docs/stages/stage2_5_robot_learning_bridge.md)
 - [Troubleshooting](docs/troubleshooting.md)：实际遇到的问题和长期经验
-- [Latest Checkpoint](docs/checkpoints/2026-09-26_stage2_complete_stage3_handoff.md)：Stage 2 完成后的新会话交接与 Stage 3 起点
+- [Latest Checkpoint](docs/checkpoints/2026-09-29_stage2_5_stage3_handoff.md)：Stage 2.5 完成后的新会话交接
 - [Prompts](docs/prompts/)：项目维护和会话整理 Prompt
 
 ## Environment
 
 - Device: MacBook Pro M1 Max
-- OS: macOS 26.6.2
+- OS: macOS 15.8
 - Architecture: Apple Silicon / arm64
 - Conda environment: robot-learning
 - Python: 3.11.16
 - PyTorch: 2.14.0
 - MuJoCo: 3.13.0
 - NumPy: 2.4.6
+- ManiSkill: 3.0.1（已安装；环境创建未验证成功）
 - MPS backend: Stage 0 曾验证 GPU 计算；本次执行进程的可用性差异见 [Current State](docs/current_state.md#environment)
 
-软件版本于 2026-09-26 从本机项目环境读取。
+软件版本于 2026-09-29 从本机项目环境核对；硬件型号沿用已有记录。
 
 ## Quick Start
 
@@ -166,13 +171,11 @@ python -m mujoco.viewer --mjcf=mujoco/01_falling_ball/ball.xml
 
 这些问题会随着实验逐步回答，而不是一次性假设已经掌握：
 
-- observation 和 state 有什么区别？
-- action 是什么？
-- policy 是什么？
+- toy environment 中的 state、observation、action 和 policy 如何映射到 ManiSkill？
 - demonstration 是什么？
 - Behavior Cloning 在优化什么？
 - 为什么 BC 会出现 distribution shift？
-- reward 是什么？
+- ManiSkill 具体任务如何给出 reward？
 - PPO 和 BC 最大的区别是什么？
 - simulation 为什么重要？
 - Sim2Real 是什么？
