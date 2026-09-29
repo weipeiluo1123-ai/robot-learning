@@ -22,7 +22,7 @@ Stage 0、Stage 1、Stage 2 的基础学习节点及 **Stage 2.5 — Robot Learn
 
 ## Repository State
 
-本地 `~/Projects/robot-learning`；GitHub `weipeiluo1123-ai/robot-learning`。2026-09-29 检查时在 `main`，HEAD `74fed7d`，与本地 `origin/main` 引用一致；未联网刷新。维护开始前只有未跟踪的 `docs/checkpoints/stage2.5.md`。
+本地 `~/Projects/robot-learning`；GitHub `weipeiluo1123-ai/robot-learning`。2026-09-29 检查时在 `main`，HEAD `74fed7d`，与本地 `origin/main` 引用一致；未联网刷新。维护开始前，详细学习记录尚未跟踪；现已改名并纳入版本控制。
 
 ```text
 robot-learning/

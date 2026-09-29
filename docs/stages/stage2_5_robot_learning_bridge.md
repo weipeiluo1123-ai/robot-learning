@@ -1,6 +1,6 @@
 # Stage 2.5 — Robot Learning Bridge
 
-**Status: Completed（toy environment 的入门学习节点）**。依据：2026-09-28/29 的 `bridge/01`–`08` 提交、用户的 [Stage 2.5 原始 handoff](../checkpoints/stage2.5.md)，以及 2026-09-29 对 `06` 和 `08` 的重新运行。原始 handoff 是未跟踪文件，保留原样，待用户 review。
+**Status: Completed（toy environment 的入门学习节点）**。依据：2026-09-28/29 的 `bridge/01`–`08` 提交、用户的 [Stage 2.5 原始 handoff](../checkpoints/2026-09-29_stage2_5_learning_journal_stage3_handoff.md)，以及 2026-09-29 对 `06` 和 `08` 的重新运行。详细学习记录与 Stage 3 handoff 已按用户要求改名并纳入版本控制；正文保留原样。
 
 ## Why this stage was added
 

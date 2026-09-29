@@ -85,7 +85,8 @@ robot-learning/
 - [Stage 2 — Robot Control & Kinematics](docs/stages/stage2_robot_control_kinematics.md)
 - [Stage 2.5 — Robot Learning Bridge](docs/stages/stage2_5_robot_learning_bridge.md)
 - [Troubleshooting](docs/troubleshooting.md)：实际遇到的问题和长期经验
-- [Latest Checkpoint](docs/checkpoints/2026-09-29_stage2_5_stage3_handoff.md)：Stage 2.5 完成后的新会话交接
+- [Stage 2.5 Detailed Journal and Handoff](docs/checkpoints/2026-09-29_stage2_5_learning_journal_stage3_handoff.md)：详细学习过程与 Stage 3 交接原始记录
+- [Latest Checkpoint](docs/checkpoints/2026-09-29_stage2_5_stage3_handoff.md)：精简的新会话交接
 - [Prompts](docs/prompts/)：项目维护和会话整理 Prompt
 
 ## Environment

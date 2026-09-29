@@ -10,7 +10,7 @@
 
 ## Repository
 
-`~/Projects/robot-learning`，GitHub `weipeiluo1123-ai/robot-learning`。2026-09-29 检查时 `main` HEAD `74fed7d`，本地 `origin/main` 同指该提交，未联网刷新。`mujoco/` 保留 Stage 1/2 实验；`bridge/01`–`08` 为 Stage 2.5；`docs/` 有阶段记录与交接。维护开始前 `docs/checkpoints/stage2.5.md` 为未跟踪的用户原始 handoff，未覆盖。
+`~/Projects/robot-learning`，GitHub `weipeiluo1123-ai/robot-learning`。2026-09-29 检查时 `main` HEAD `74fed7d`，本地 `origin/main` 同指该提交，未联网刷新。`mujoco/` 保留 Stage 1/2 实验；`bridge/01`–`08` 为 Stage 2.5；`docs/` 有阶段记录与交接。维护开始前该详细学习记录尚未跟踪；现已按用户要求改名并纳入版本控制，正文未覆盖。
 
 ## Completed This Session
 
